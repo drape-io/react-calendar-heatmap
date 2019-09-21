@@ -7,7 +7,7 @@
     "react-calendar-heatmap": "../",
     "react-dom": "^16.9.0",
     "react-scripts": "3.0.1",
-    "react-tooltip": "^3.6.1"
+    "react-tooltip": "^3.11.1"
   },
   "scripts": {
     "predeploy": "npm run build",

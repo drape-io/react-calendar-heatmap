@@ -1,3 +1,5 @@
+import { DAYS_IN_WEEK } from './constants';
+
 // returns a new date shifted a certain number of days (can be negative)
 export function shiftDate(date, numDays) {
   const newDate = new Date(date);
@@ -5,8 +7,9 @@ export function shiftDate(date, numDays) {
   return newDate;
 }
 
-export function getBeginningTimeForDate(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+export function getDatetimeFromDate(date) {
+  let dateObj = convertToDate(date);
+  return new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
 }
 
 // obj can be a parseable string, a millisecond timestamp, or a Date object
@@ -25,3 +28,13 @@ export function getRange(count) {
   }
   return arr;
 }
+
+export function getNumEmptyDaysEnd(date) {
+    // getDay returns 0-6, Sun-Sat
+    // top row of grid is Sunday
+    return DAYS_IN_WEEK - 1 - convertToDate(date).getDay();
+}
+
+export function getNumEmptyDaysStart(date) {
+    return convertToDate(date).getDay();
+} 

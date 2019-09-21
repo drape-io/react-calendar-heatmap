@@ -40,20 +40,32 @@ class Demo extends React.Component {
     });
   };
 
-  getTooltipDataAttrs = (value) => {
-    // Temporary hack around null value.date issue
-    if (!value || !value.date) {
-      return null;
-    }
-    // Configuration for react-tooltip
-    return {
-      'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${value.count}`,
+    getTooltipDataAttrs = (value) => {
+        // Temporary hack around null value.date issue
+        if (!value || !value.date) {
+            return null;
+        }
+        // Configuration for react-tooltip
+        return {
+            'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${value.count}`,
+        };
     };
-  };
-
-  handleClick = (value) => {
-    alert(`You clicked on ${value.date.toISOString().slice(0, 10)} with count: ${value.count}`);
-  };
+    getTooltipDataAttrs2 = (value) => {
+        // Temporary hack around null value.date issue
+        if (!value || !value.date) {
+            return null;
+        }
+        // Configuration for react-tooltip
+        return {
+            'data-tip': `${new Date(value.date).toISOString().slice(0, 10)} has count: ${value.count}`,
+        };
+    };
+    handleClick = (value) => {
+        alert(`You clicked on ${value.date.toISOString().slice(0, 10)} with count: ${value.count}`);
+    };
+    handleClick2 = (value) => {
+        alert(`You clicked on ${new Date(value.date).toISOString().slice(0, 10)} with count: ${value.count}`);
+    };
 
   render() {
     return (
@@ -74,15 +86,22 @@ class Demo extends React.Component {
           </div>
           <div className="col-12 col-sm-6">
             <CalendarHeatmap
-              values={this.state.values}
+        startDate={new Date('2016-01-01')}
+        endDate={new Date('2016-06-30')}
+        values={[
+            { date: '2016-01-01', count: 8 },
+            { date: '2016-01-02', count: 8 },
+            { date: '2016-01-22', count: 6 },
+            { date: '2016-01-30', count: 4 },
+        ]}
               classForValue={(value) => {
                 if (!value) {
                   return 'color-empty';
                 }
                 return `color-gitlab-${value.count}`;
               }}
-              tooltipDataAttrs={this.getTooltipDataAttrs}
-              onClick={this.handleClick}
+              tooltipDataAttrs={this.getTooltipDataAttrs2}
+              onClick={this.handleClick2}
             />
           </div>
         </div>{' '}

@@ -1,9 +1,11 @@
 import {
   convertToDate,
   dateNDaysAgo,
-  getBeginningTimeForDate,
+  getDatetimeFromDate,
   getRange,
   shiftDate,
+  getNumEmptyDaysStart,
+  getNumEmptyDaysEnd,
 } from './helpers';
 
 describe('shiftDate', () => {
@@ -64,12 +66,12 @@ describe('shiftDate', () => {
   });
 });
 
-describe('getBeginningTimeForDate', () => {
+describe('getDatetimeFromDate', () => {
   it('gets midnight (in the local timezone) on the date passed in', () => {
     const inputDate = new Date(2017, 11, 25, 21, 30, 59, 750);
     const expectedDate = new Date(2017, 11, 25, 0, 0, 0, 0);
 
-    expect(getBeginningTimeForDate(inputDate).getTime()).toBe(expectedDate.getTime());
+    expect(getDatetimeFromDate(inputDate).getTime()).toBe(expectedDate.getTime());
   });
 });
 
@@ -170,5 +172,23 @@ describe('getRange', () => {
 
   it('generates an array containing multiple integers', () => {
     expect(getRange(5)).toEqual([0, 1, 2, 3, 4]);
+  });
+});
+
+describe('getNumEmptyDaysStart', () => {
+  it('returns 6 for a Saturday', () => {
+    expect(getNumEmptyDaysStart(new Date('2019-01-06'))).toEqual(6);
+  });
+  it('returns 0 for a Sunday', () => {
+    expect(getNumEmptyDaysStart(new Date('2019-01-07'))).toEqual(0);
+  });
+});
+
+describe('getNumEmptyDaysEnd', () => {
+  it('returns 0 for a Saturday', () => {
+    expect(getNumEmptyDaysEnd(new Date('2019-01-06'))).toEqual(0);
+  });
+  it('returns 6 for a Sunday', () => {
+    expect(getNumEmptyDaysEnd(new Date('2019-01-07'))).toEqual(6);
   });
 });
