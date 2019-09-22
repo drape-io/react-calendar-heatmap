@@ -30,11 +30,11 @@ export function getRange(count) {
 }
 
 export function getNumEmptyDaysEnd(date) {
-    // getDay returns 0-6, Sun-Sat
-    // top row of grid is Sunday
-    return DAYS_IN_WEEK - 1 - convertToDate(date).getDay();
+  // getDay returns 0-6, Sun-Sat
+  // top row of grid is Sunday
+  return DAYS_IN_WEEK - 1 - convertToDate(date).getDay();
 }
 
 export function getNumEmptyDaysStart(date) {
-    return convertToDate(date).getDay();
+  return convertToDate(date).getDay();
 } 

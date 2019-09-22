@@ -40,14 +40,7 @@ class CalendarHeatmap extends React.Component {
 
   getActivityDaysCount() {
     // squares, doesnt include empty
-    const { startDate, numDays } = this.props;
-    if (numDays) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'numDays is a deprecated prop. It will be removed in the next release. Consider using the startDate prop instead.',
-      );
-      return numDays;
-    }
+    const { startDate } = this.props;
     const timeDiff = this.state.endDatetime - this.state.startDatetime;
     return Math.ceil(timeDiff / MILLISECONDS_IN_ONE_DAY) + 1;
   }
@@ -74,10 +67,6 @@ class CalendarHeatmap extends React.Component {
       return 30;
     }
     return SQUARE_SIZE * 1.5;
-  }
-
-  getStartDate() {
-    return shiftDate(this.state.endDatetime, -this.getActivityDaysCount());
   }
 
   getStartDateWithEmptyDays() {
@@ -241,6 +230,7 @@ class CalendarHeatmap extends React.Component {
   }
 
   renderSquare(dayIndex, index) {
+    //startemptycount is 1 indexed, "count"
     const indexOutOfRange =
       index < this.state.startEmptyCount ||
       index >= this.state.startEmptyCount + this.getActivityDaysCount();
@@ -357,7 +347,6 @@ CalendarHeatmap.propTypes = {
         .isRequired,
     }).isRequired,
   ).isRequired, // array of objects with date and arbitrary metadata
-  numDays: PropTypes.number, // number of days back from endDate to show
   startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)]), // start of date range
   endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)]), // end of date range
   gutterSize: PropTypes.number, // size of space between squares
@@ -377,8 +366,7 @@ CalendarHeatmap.propTypes = {
 };
 
 CalendarHeatmap.defaultProps = {
-  numDays: null,
-  startDate: dateNDaysAgo(200),
+  startDate: dateNDaysAgo(199),
   endDate: new Date(),
   gutterSize: 1,
   horizontal: true,

@@ -40,16 +40,16 @@ class Demo extends React.Component {
     });
   };
 
-    getTooltipDataAttrs = (value) => {
-        // Temporary hack around null value.date issue
-        if (!value || !value.date) {
-            return null;
-        }
-        // Configuration for react-tooltip
-        return {
-            'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${value.count}`,
-        };
+  getTooltipDataAttrs = (value) => {
+    // Temporary hack around null value.date issue
+    if (!value || !value.date) {
+      return null;
+    }
+    // Configuration for react-tooltip
+    return {
+      'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${value.count}`,
     };
+  };
     getTooltipDataAttrs2 = (value) => {
         // Temporary hack around null value.date issue
         if (!value || !value.date) {
@@ -89,10 +89,13 @@ class Demo extends React.Component {
         startDate={new Date('2016-01-01')}
         endDate={new Date('2016-06-30')}
         values={[
+            { date: '2015-12-30', count: 8 },
             { date: '2016-01-01', count: 8 },
             { date: '2016-01-02', count: 8 },
             { date: '2016-01-22', count: 6 },
             { date: '2016-01-30', count: 4 },
+            { date: '2016-06-30', count: 4 },
+            { date: '2016-07-30', count: 4 },
         ]}
               classForValue={(value) => {
                 if (!value) {
